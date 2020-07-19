@@ -1,11 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 class BlockItem extends React.Component {
 
     render() {
 
-        const { content } = this.props
+        const { content, deleteBlockItemByIdFn } = this.props
 
         return (
             <View style={styles.content_container}>
@@ -15,8 +16,18 @@ class BlockItem extends React.Component {
                     <Text style={styles.ribtw_text}> {content.ribtw} </Text>
                 </View>
                 <View style={styles.details_container}>
-                    <Text style={styles.detail_text}> {"Set : " + content.set} </Text>
-                    <Text style={styles.detail_text}> {"Reps per set : " + content.repPSet} </Text>
+                    <View style={styles.details_view}>
+                        <Text style={styles.detail_text}> {"Set : " + content.set} </Text>
+                        <Text style={styles.detail_text}> {"Reps per set : " + content.repPSet} </Text>
+                    </View>
+                    <View style={styles.icons_view}>
+                        <TouchableOpacity style={styles.button_style} onPress={() => {}}>
+                            <Text style={styles.icon_text}>{"Modify"}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button_style} onPress={() => deleteBlockItemByIdFn(content.id)}>
+                            <Text style={styles.icon_text}>{"Delete"}</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         )
@@ -67,13 +78,36 @@ const styles = StyleSheet.create({
       },
     details_container: {
         flex: 5,
+        flexDirection: 'row',
+        // justifyContent: "space-evenly"
+    },
+    details_view: {
+        flex: 3,
+        backgroundColor: '#ff9e37'
+    },
+    icons_view: {
+        flex: 2,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        backgroundColor: '#ff9e37'
+    },
+    button_style: {
+        height: 40,
+        width: 40,
         flexDirection: 'column',
-        justifyContent: "space-evenly"
-      },
+        justifyContent: 'center',
+        backgroundColor: 'gray',
+        borderRadius: 20
+    },
     detail_text: {
         fontStyle: 'italic',
         color: '#666666'
-      },
+    },
+    icon_text: {
+        fontSize: 10,
+        textAlign: 'center',
+    }
+
 })
 
 export default BlockItem

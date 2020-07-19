@@ -2,8 +2,6 @@ import React from 'react'
 import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native'
 import BlockItem from './BlockItem'
 import blocks from '../Helpers/blocksData'
-import { TextInput } from 'react-native-gesture-handler'
-
 
 class Carnet extends React.Component {
 
@@ -18,6 +16,12 @@ class Carnet extends React.Component {
         this.props.navigation.navigate("BlockAdder", {Carnet: this})
     }
 
+    _deleteBlockItemById = (id) => {
+        console.log("Id to delete : " + id)
+        const filteredData = this.state.blocks.filter(item => item.id !== id);
+        this.setState({ blocks: filteredData });
+      }
+
     render() {
         console.log(this.number_of_blocks)
         return (
@@ -26,7 +30,7 @@ class Carnet extends React.Component {
                     <FlatList
                         data={this.state.blocks}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <BlockItem content={item}/>}
+                        renderItem={({item}) => <BlockItem content={item} deleteBlockItemByIdFn={this._deleteBlockItemById}/>}
                     />
                 </View>
                 <View style={styles.global_add_button_view}>
