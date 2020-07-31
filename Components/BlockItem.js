@@ -1,11 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { deleteItem } from '../API/Backend'
 
 class BlockItem extends React.Component {
 
+    _deleteBlockItem = (item_id) => {
+        deleteItem(item_id).then(data => {})
+    }
+
     render() {
 
-        const { content, deleteBlockItemByIdFn, goToFn } = this.props
+        const { content, goToFn } = this.props
 
         return (
             <View style={styles.content_container}>
@@ -16,13 +21,13 @@ class BlockItem extends React.Component {
                 </View>
                 <View style={styles.details_container}>
                     <View style={styles.details_view}>
-                        <Text style={styles.detail_text}> {content.customText} </Text>
+                        <Text style={styles.detail_text}> {content.description} </Text>
                     </View>
                     <View style={styles.icons_view}>
                         <TouchableOpacity style={styles.button_style} onPress={() => goToFn("BlockAdder", content)}>
                             <Text style={styles.icon_text}>{"Modify"}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button_style} onPress={() => deleteBlockItemByIdFn(content.id)}>
+                        <TouchableOpacity style={styles.button_style} onPress={() => this._deleteBlockItem(content.id)}>
                             <Text style={styles.icon_text}>{"Delete"}</Text>
                         </TouchableOpacity>
                     </View>

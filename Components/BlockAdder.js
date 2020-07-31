@@ -1,17 +1,23 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
-import { addItem } from '../API/Backend'
+import { addItem, updateItem } from '../API/Backend'
 
 class BlockAdder extends React.Component {
 
     constructor(props) {
         super(props)
-        this.modify = 0
-        this.state = {
-            exercice : "",
-            weight : "",
-            ribtw : "",
-            customText : "",
+        const sourceBlockItemContent = this.props.navigation.state.params.SourceBlockItemContent
+        if (sourceBlockItemContent != undefined) {
+            this.state = sourceBlockItemContent
+            console.log(this.state)
+        } else {
+            this.state = {
+                id : "",
+                exercice : "",
+                weight : "",
+                ribtw : "",
+                description : "",
+            }
         }
     }
 
@@ -19,35 +25,19 @@ class BlockAdder extends React.Component {
         this.props.navigation.navigate("Carnet")
     }
 
-    _addBlockAndGoBackToCarnetOld() {
-        const carnet = this.props.navigation.state.params.Carnet
-        if (this.modify == 0) {
-            carnet.number_of_blocks += 1
-        }
-        const newBlockData = [{
-            id: carnet.number_of_blocks, 
-            exercice: this.state.exercice, 
-            weight: this.state.weight,
-            ribtw: this.state.ribtw,
-            customText: this.state.customText,
-        }]
-        console.log(newBlockData)
-        carnet.setState({blocks: carnet.state.blocks.concat(newBlockData)}, () => this._goBackToCarnetScreen())
-    }
-
     _addBlockAndGoBackToCarnet() {
-        addItem(this.state.exercice, this.state.weight, this.state.ribtw, this.state.description_text).then(data => {})
+        console.log("id is : " + this.state.id)
+        if (this.state.id == "") {
+            addItem(this.state.exercice, this.state.weight, this.state.ribtw, this.state.description).then(data => {})
+            console.log('block added')
+        } else {
+            console.log('block updated')
+            updateItem(this.state.id, this.state.exercice, this.state.weight, this.state.ribtw, this.state.description).then(data => {})
+        }
         this._goBackToCarnetScreen()
     }
 
     render() {
-
-        const sourceBlockItemContent = this.props.navigation.state.params.SourceBlockItemContent
-        console.log("this.modify : " + this.modify)
-        console.log("sourceBlockItemContent : " + sourceBlockItemContent)
-        if ((this.modify == 0) & (sourceBlockItemContent != undefined)) {
-            this.setState(sourceBlockItemContent, () => {this.modify=1})
-        }
 
         return (   
             <View style={styles.global_view}>
@@ -68,7 +58,7 @@ class BlockAdder extends React.Component {
                         <TextInput 
                             style={styles.text_input_area} 
                             placeholder='Weight'
-                            value={this.state.weight}
+                            value={this.state.weight.toString()}
                             onChangeText={(text) => this.setState({weight: text})}
                             onSubmitEditing={() => {}}
                         />
@@ -88,8 +78,8 @@ class BlockAdder extends React.Component {
                         <TextInput 
                             style={styles.text_input_area} 
                             placeholder='Block description'
-                            value={this.state.customText}
-                            onChangeText={(text) => this.setState({customText: text})}
+                            value={this.state.description}
+                            onChangeText={(text) => this.setState({description: text})}
                             onSubmitEditing={() => {}}
                         />
                     </View>

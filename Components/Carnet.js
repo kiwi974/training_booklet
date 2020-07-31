@@ -20,12 +20,6 @@ class Carnet extends React.Component {
         this.props.navigation.navigate(pageName, {SourceBlockItemContent: content})
     }
 
-    _deleteBlockItemById = (id) => {
-        console.log("Id to delete : " + id)
-        const filteredData = this.state.blocks.filter(item => item.id !== id);
-        this.setState({ blocks: filteredData });
-      }
-
 
     render() {
 
@@ -37,7 +31,7 @@ class Carnet extends React.Component {
                     <FlatList
                         data={this.state.blocks}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <BlockItem content={item} deleteBlockItemByIdFn={this._deleteBlockItemById} goToFn={this._goToFromBlockItem} />}
+                        renderItem={({item}) => <BlockItem content={item} goToFn={this._goToFromBlockItem} />}
                     />
                 </View>
                 <View style={styles.global_add_button_view}>

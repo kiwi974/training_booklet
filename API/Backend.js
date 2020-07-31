@@ -17,8 +17,20 @@ export function addItem (exercice_name, weight, ribtw, description) {
   const url = 'http://training-booklet-backend.herokuapp.com/api/add_item'
               + '?exercice_name=' + exercice_name
               + '&weight=' + weight
-              + '&ritbw' + ribtw
-              + '&description' + description
+              + '&ribtw=' + ribtw
+              + '&description=' + description
+  return fetch(url)
+    .then((response) => response.json())
+    .catch((error) => console.error(error))
+}
+
+export function updateItem (item_id, exercice_name, weight, ribtw, description) {
+  const url = 'http://training-booklet-backend.herokuapp.com/api/update_item'
+              + '?item_id=' + item_id
+              + '&exercice_name=' + exercice_name
+              + '&weight=' + weight
+              + '&ribtw=' + ribtw
+              + '&description=' + description
   return fetch(url)
     .then((response) => response.json())
     .catch((error) => console.error(error))
