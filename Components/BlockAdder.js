@@ -1,38 +1,36 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
-import { addItem, updateItem } from '../API/Backend'
+import { getSingleItem, addItem, updateItem } from '../API/Backend'
 
 class BlockAdder extends React.Component {
 
     constructor(props) {
         super(props)
-        const sourceBlockItemContent = this.props.navigation.state.params.SourceBlockItemContent
-        if (sourceBlockItemContent != undefined) {
-            this.state = sourceBlockItemContent
-            console.log(this.state)
-        } else {
-            this.state = {
-                id : "",
-                exercice : "",
-                weight : "",
-                ribtw : "",
-                description : "",
+        const day = this.props.navigation.state.params.day
+        this.state = {
+            id : "",
+            exercice_order : "",
+            exercice : "",
+            weight : "",
+            day : day,
+            ribtw : "",
+            description : "",
             }
+        if (this.props.navigation.state.params.content_id) {
+            const id = this.props.navigation.state.params.content_id
+            getSingleItem(id, day).then(data => {this.setState(data)})
+        } 
         }
-    }
 
     _goBackToCarnetScreen() {
         this.props.navigation.navigate("Carnet")
     }
 
     _addBlockAndGoBackToCarnet() {
-        console.log("id is : " + this.state.id)
         if (this.state.id == "") {
-            addItem(this.state.exercice, this.state.weight, this.state.ribtw, this.state.description).then(data => {})
-            console.log('block added')
+            addItem(this.state.exercice_order, this.state.exercice, this.state.weight, this.state.day, this.state.ribtw, this.state.description).then(data => {})
         } else {
-            console.log('block updated')
-            updateItem(this.state.id, this.state.exercice, this.state.weight, this.state.ribtw, this.state.description).then(data => {})
+            updateItem(this.state.id, this.state.exercice_order, this.state.exercice, this.state.weight, this.state.day, this.state.ribtw, this.state.description).then(data => {})
         }
         this._goBackToCarnetScreen()
     }
@@ -42,6 +40,17 @@ class BlockAdder extends React.Component {
         return (   
             <View style={styles.global_view}>
                 <View style={styles.all_text_input_global_view}>
+                    <View style={styles.text_input_rounding_view}>
+                        <Text style={styles.description_text}>{"Exercice number :"}</Text>
+                        <TextInput 
+                            style={styles.text_input_area} 
+                            placeholder="Exercice number"
+                            value={this.state.exercice_order.toString()}
+                            editable={true}
+                            onChangeText={(text) => this.setState({exercice_order: text})}
+                            onSubmitEditing={() => {}}
+                        />
+                    </View>
                     <View style={styles.text_input_rounding_view}>
                         <Text style={styles.description_text}>{"Exercice :"}</Text>
                         <TextInput 

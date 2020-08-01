@@ -5,7 +5,11 @@ import HomePageItem from './HomePageItem'
 class HomePage extends React.Component {
 
     _navigateTo = (pageName) => {
-        this.props.navigation.navigate(pageName)
+        if (pageName=="Carnet") {
+            this.props.navigation.navigate("CalendarView")
+        } else {
+            this.props.navigation.navigate(pageName)
+        }
       }
 
     render() {

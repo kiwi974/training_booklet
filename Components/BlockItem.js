@@ -4,13 +4,13 @@ import { deleteItem } from '../API/Backend'
 
 class BlockItem extends React.Component {
 
-    _deleteBlockItem = (item_id) => {
-        deleteItem(item_id).then(data => {})
+    _deleteBlockItem = (item_id, day) => {
+        deleteItem(item_id, day).then(data => {})
     }
 
     render() {
 
-        const { content, goToFn } = this.props
+        const { content, day, goToFn } = this.props
 
         return (
             <View style={styles.content_container}>
@@ -20,14 +20,17 @@ class BlockItem extends React.Component {
                     <Text style={styles.ribtw_text}> {content.ribtw} </Text>
                 </View>
                 <View style={styles.details_container}>
+                    <Text style={styles.detail_text}> {content.exercice_order} </Text>
+                </View>
+                <View style={styles.bottom_container}>
                     <View style={styles.details_view}>
                         <Text style={styles.detail_text}> {content.description} </Text>
                     </View>
                     <View style={styles.icons_view}>
-                        <TouchableOpacity style={styles.button_style} onPress={() => goToFn("BlockAdder", content)}>
+                        <TouchableOpacity style={styles.button_style} onPress={() => goToFn("BlockAdder", content.id, day)}>
                             <Text style={styles.icon_text}>{"Modify"}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button_style} onPress={() => this._deleteBlockItem(content.id)}>
+                        <TouchableOpacity style={styles.button_style} onPress={() => this._deleteBlockItem(content.id, day)}>
                             <Text style={styles.icon_text}>{"Delete"}</Text>
                         </TouchableOpacity>
                     </View>
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'gray'
       },
     content_container: {
-        flex: 10,
+        flex: 12,
         margin: 5,
         height: 100,
         width: 300,
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
     weight_text: {
         flex: 3,
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 18,
         color: "#ffffff",
         flexWrap: 'wrap',
         paddingRight: 5,
@@ -76,10 +79,14 @@ const styles = StyleSheet.create({
     ribtw_text: {
         flex: 3,
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
         color: '#666666',
       },
     details_container: {
+        flex:2,
+        backgroundColor: 'gray'
+    },
+    bottom_container: {
         flex: 5,
         flexDirection: 'row',
         // justifyContent: "space-evenly"

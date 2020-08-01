@@ -4,7 +4,7 @@ import HomePage from '../Components/HomePage'
 import Carnet from '../Components/Carnet'
 import Notes from '../Components/Notes'
 import BlockAdder from '../Components/BlockAdder'
-import BlockItem from '../Components/BlockItem'
+import CalendarView from '../Components/CalendarView'
 
 const SearchStackNavigator = createStackNavigator({
   HomePage: {
@@ -29,6 +29,12 @@ const SearchStackNavigator = createStackNavigator({
     screen: BlockAdder,
     navigationOptions: {
         title: "BlockAdder"
+    }
+  },
+  CalendarView: {
+    screen: CalendarView,
+    navigationOptions: {
+        title: "CalendarView"
     }
   },
 })

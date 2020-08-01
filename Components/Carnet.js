@@ -9,21 +9,17 @@ class Carnet extends React.Component {
         super(props)
         this.state = { blocks: [],
                      }
-        this.number_of_blocks = this.state.blocks.length
     }
 
-    _goToBlockAdder() {
-        this.props.navigation.navigate("BlockAdder", {Carnet: this})
-    }
-
-    _goToFromBlockItem = (pageName, content) => {
-        this.props.navigation.navigate(pageName, {SourceBlockItemContent: content})
+    _goToFromBlockItem = (pageName, id, day) => {
+        this.props.navigation.navigate(pageName, {content_id : id, day : day})
     }
 
 
     render() {
 
-        getAllItems().then(data => this.setState({ blocks: data}))
+        const day = this.props.navigation.state.params.day
+        getAllItems(day).then(data => this.setState({ blocks: data }))
 
         return (
             <View style={{flex: 10}}>
@@ -31,11 +27,11 @@ class Carnet extends React.Component {
                     <FlatList
                         data={this.state.blocks}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <BlockItem content={item} goToFn={this._goToFromBlockItem} />}
+                        renderItem={({item}) => <BlockItem content={item} day={day} goToFn={this._goToFromBlockItem} />}
                     />
                 </View>
                 <View style={styles.global_add_button_view}>
-                    <TouchableOpacity style={styles.touchable_opacity} onPress={() => this._goToBlockAdder()}> 
+                    <TouchableOpacity style={styles.touchable_opacity} onPress={() => this.props.navigation.navigate("BlockAdder", {day : day})}> 
                         <Text style={styles.add_block_item_text}> {"Add a block"} </Text>
                     </TouchableOpacity>
                 </View>
