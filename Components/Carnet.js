@@ -7,22 +7,24 @@ class Carnet extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { blocks: [],
-                     }
+        this.state = { 
+            blocks: [],
+        }
     }
 
     _goToFromBlockItem = (pageName, id, day) => {
         this.props.navigation.navigate(pageName, {content_id : id, day : day})
     }
 
-
     render() {
 
         const day = this.props.navigation.state.params.day
-        getAllItems(day).then(data => this.setState({ blocks: data }))
 
         return (
             <View style={{flex: 10}}>
+                <View style={{flex:1}}>
+                    <Text>Today workout : {day} </Text>
+                </View>
                 <View style={styles.flatList_container}>
                     <FlatList
                         data={this.state.blocks}
@@ -38,12 +40,22 @@ class Carnet extends React.Component {
             </View>
         )
     }
+
+    componentDidMount() {
+        const day = this.props.navigation.state.params.day
+        getAllItems(day).then(data => this.setState({ blocks: data }))
+    }
+
+    componentDidUpdate() {
+        const day = this.props.navigation.state.params.day
+        getAllItems(day).then(data => this.setState({ blocks: data }))
+    }
 }
 
 const styles = StyleSheet.create({
     // Flatlist views
     flatList_container: {
-        flex: 9,
+        flex: 8,
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: '#e7e7e7',

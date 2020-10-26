@@ -6,6 +6,7 @@ class BlockItem extends React.Component {
 
     _deleteBlockItem = (item_id, day) => {
         deleteItem(item_id, day).then(data => {})
+        console.log("deleted")
     }
 
     render() {

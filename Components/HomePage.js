@@ -1,31 +1,25 @@
 import React from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import HomePageItem from './HomePageItem'
 
 class HomePage extends React.Component {
 
-    _navigateTo = (pageName) => {
-        if (pageName=="Carnet") {
-            this.props.navigation.navigate("CalendarView")
-        } else {
-            this.props.navigation.navigate(pageName)
-        }
-      }
-
     render() {
+        var date = new Date()
+        var month = date.getMonth()+1
+        month = month < 10 ? "0" + month : month
+        var day = date.getDate()
+        day = day < 10 ? "0" + day : day
+        const today_date = date.getFullYear() + '-' + month + '-' + day
+
         return (
             <View style={styles.main_container}>
-                <View style={styles.flatList_container}>
-                    <FlatList
-                        data={[{'itemTitle': "Carnet"}, {"itemTitle": "Notes"}]}
-                        keyExtractor={(item) => item.itemTitle.toString()}
-                        renderItem={({item}) => <HomePageItem content={item} navigateToFn={this._navigateTo}/>}
-                    />
-                </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("Carnet", {day : today_date})}> 
+                    <Text styles={styles.touchable_opacity_button}> Let's Workout today ! </Text>
+                </TouchableOpacity>
             </View>
         )
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -42,6 +36,15 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         backgroundColor: '#e7e7e7',
+    },
+    touchable_opacity_button: {
+        height: 50,
+        width: 180,
+        backgroundColor: '#fb7a24',
+        padding:0,
+        marginVertical: 100,
+        marginHorizontal: 0,
+        borderRadius: 10
     }
 })
 

@@ -19,8 +19,6 @@ class CalendarView extends Component {
   }
   
   render() {
-    const { selectedStartDate } = this.state;
-    const startDate = selectedStartDate ? selectedStartDate.toString() : '';
     return (
       <View style={styles.container}>
         <CalendarPicker
