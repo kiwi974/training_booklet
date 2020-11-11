@@ -5,6 +5,7 @@ import Carnet from '../Components/Carnet'
 import Notes from '../Components/Notes'
 import BlockAdder from '../Components/BlockAdder'
 import CalendarView from '../Components/CalendarView'
+import Chronometer from '../Components/Chronometer'
 
 const SearchStackNavigator = createStackNavigator({
   HomePage: {
@@ -35,6 +36,12 @@ const SearchStackNavigator = createStackNavigator({
     screen: CalendarView,
     navigationOptions: {
         title: "CalendarView"
+    }
+  },
+  Chronometer: {
+    screen: Chronometer,
+    navigationOptions: {
+        title: "Chronometer"
     }
   },
 })

@@ -18,9 +18,11 @@ class BlockItem extends React.Component {
                     <Text style={styles.exercice_text}> {content.exercice} </Text>
                     <Text style={styles.weight_text}> {content.weight + "kg"} </Text>
                     <Text style={styles.ribtw_text}> {content.ribtw} </Text>
-                </View>
-                <View style={styles.details_container}>
-                    <Text style={styles.detail_text}> {content.exercice_order} </Text>
+                    <View style={styles.order_container}>
+                        <View style={{height:20, width:20, borderRadius: 10, backgroundColor: 'white', justifyContent: "center", alignItems: "center"}}>
+                            <Text style={styles.order_text}> {content.exercice_order} </Text>
+                        </View>
+                    </View>
                 </View>
                 <View style={styles.bottom_container}>
                     <View style={styles.details_view}>
@@ -49,15 +51,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'gray'
       },
     content_container: {
-        flex: 12,
+        flex: 16,
         margin: 5,
         height: 100,
         width: 300,
-        backgroundColor: '#ff9e37',
-        borderRadius: 10
+        backgroundColor: 'rgba(0.8,0.8,0.8,0.55)',
+        borderRadius: 10,
+        borderWidth: 3,
+        borderColor: 'black'
       },
     header_container: {
-        flex: 5,
+        flex: 4,
         flexDirection: 'row',
         // justifyContent: "space-evenly"
       },
@@ -65,58 +69,69 @@ const styles = StyleSheet.create({
         flex: 8,
         fontWeight: 'bold',
         fontSize: 20,
+        color: 'white',
         flexWrap: 'wrap',
         paddingRight: 5,
       },
     weight_text: {
-        flex: 3,
+        flex: 4,
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 16,
         color: "#ffffff",
         flexWrap: 'wrap',
         paddingRight: 5,
       },
     ribtw_text: {
-        flex: 3,
+        flex: 4,
         fontWeight: 'bold',
         fontSize: 16,
-        color: '#666666',
+        color: '#ffffff',
       },
-    details_container: {
-        flex:2,
-        backgroundColor: 'gray'
+    order_container: {
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        backgroundColor: 'rgba(0.6,0.6,0.6,0)',
+        borderRadius: 20, 
+        padding: 5
     },
     bottom_container: {
-        flex: 5,
+        flex: 6,
         flexDirection: 'row',
         // justifyContent: "space-evenly"
     },
     details_view: {
         flex: 3,
         borderRadius: 10,
-        backgroundColor: '#ffe8d7'
+        backgroundColor: '#dadada',
     },
     icons_view: {
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        backgroundColor: '#ff9e37'
+        backgroundColor: 'rgba(0.6,0.6,0.6,0)',
+        borderRadius: 10,
+        justifyContent: "space-evenly",
+        alignItems: "center",
     },
     button_style: {
         height: 40,
         width: 40,
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: 'gray',
-        borderRadius: 20
+        backgroundColor: '#a7a7a7',
+        borderRadius: 20,
+        borderWidth: 2,
+        borderColor: 'white',
     },
-    detail_text: {
+    order_text: {
         fontStyle: 'italic',
         color: '#666666'
     },
     icon_text: {
         fontSize: 10,
         textAlign: 'center',
+        fontWeight: "bold",
     }
 
 })

@@ -18,18 +18,21 @@ class HomePageItem extends React.Component {
 
 const styles = StyleSheet.create({
     main_container: {
-      height: 70,
-      width: 150,
-      backgroundColor: '#ff9e37',
+      height: 100,
+      width: 250,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: 'rgba(200,200,200,0.8)',
       padding:0,
-      marginVertical: 10,
+      marginVertical: 20,
       marginHorizontal: 0,
-      borderRadius: 10
+      borderRadius: 10, 
+      borderColor: 'black',
+      borderWidth: 3
     },
     itemText: {
         textAlign: 'center',
-        textAlignVertical: 'center',
-        fontSize: 20, 
+        fontSize: 30, 
         fontWeight: "bold",
         padding: 3,
     }

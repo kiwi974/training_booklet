@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, ImageBackground } from 'react-native'
 import HomePageItem from './HomePageItem'
 
 class HomePage extends React.Component {
@@ -15,13 +15,15 @@ class HomePage extends React.Component {
     render() {
         return (
             <View style={styles.main_container}>
-                <View style={styles.flatList_container}>
-                    <FlatList
-                        data={[{'itemTitle': "Carnet"}, {"itemTitle": "Notes"}]}
-                        keyExtractor={(item) => item.itemTitle.toString()}
-                        renderItem={({item}) => <HomePageItem content={item} navigateToFn={this._navigateTo}/>}
-                    />
-                </View>
+                <ImageBackground source={require('../assets/fitness-1882721_1920.jpg')} style={styles.image}>
+                    <View style={styles.flatList_container}>
+                        <FlatList
+                            data={[{'itemTitle': "Carnet"}, {"itemTitle": "Notes"}, {"itemTitle": "Chronometer"}]}
+                            keyExtractor={(item) => item.itemTitle.toString()}
+                            renderItem={({item}) => <HomePageItem content={item} navigateToFn={this._navigateTo}/>}
+                        />
+                    </View>
+                </ImageBackground>
             </View>
         )
     }
@@ -30,18 +32,22 @@ class HomePage extends React.Component {
 
 const styles = StyleSheet.create({
     main_container: {
-      flex: 1,
-      flexDirection: 'column',
-      backgroundColor: '#e7e7e7',
-      justifyContent: "space-evenly",
-      padding: 80
+      flex: 10,
+      backgroundColor: '#ffffff'
+    },
+    image: {
+        flex:10,
+        height: '100%',
+        width: '100%',
+        justifyContent: "center",
+        alignItems: "center",
     },
     flatList_container: {
-        flex: 0.8,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        backgroundColor: '#e7e7e7',
+        width: 300,
+        height: 400,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(52, 52, 52, 0)',
     }
 })
 
